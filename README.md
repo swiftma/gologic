@@ -1,0 +1,2 @@
+# gologic
+go programming logic
