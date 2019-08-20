@@ -1,0 +1,21 @@
+version: '3.1'
+
+services:
+
+  shippy-cli-consignment:
+    build: ./client
+
+  shippy-service-consignment:
+    build: ./consignment-service
+    ports:
+      - 50051:50051
+    environment:
+      MICRO_ADDRESS: ":50051"
+      DB_HOST: "datastore:27017"
+
+  shippy-service-vessel:
+    build: ./vessel-service
+    ports:
+      - 50052:50051
+    environment:
+      MICRO_ADDRESS: ":50051"

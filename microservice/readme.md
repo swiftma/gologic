@@ -37,7 +37,25 @@ go install
 
 build docker images requires golang.org/x/sys/unix
 
+
+https://ewanvalentine.io/microservices-in-golang-part-2/
+
 ```
 mkdir -p $GOPATH/src/golang.org/x/sys/
 git clone https://github.com/golang/sys.git $GOPATH/src/golang.org/x/sys
 ```
+
+Go-micro integrates as a protoc plugin, in this case replacing the standard gRPC plugin we're currently using.
+```
+go get -u github.com/micro/protobuf/{proto,protoc-gen-go}
+go get github.com/micro/go-micro
+```
+
+删除指定image d72c2c74e975 不用的容器实例
+docker ps -a|grep d72c2c74e975|awk '{print $1}'|xargs docker rm
+
+docker stop $(docker ps -qa)
+docker ps -a|awk '{print $1}'|xargs docker rm
+
+docker-compose up -d
+docker-compose run shippy-cli-consignment
