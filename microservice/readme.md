@@ -57,5 +57,5 @@ docker ps -a|grep d72c2c74e975|awk '{print $1}'|xargs docker rm
 docker stop $(docker ps -qa)
 docker ps -a|awk '{print $1}'|xargs docker rm
 
-docker-compose up -d
+docker-compose up
 docker-compose run shippy-cli-consignment
