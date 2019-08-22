@@ -61,3 +61,6 @@ docker-compose up
 docker-compose run shippy-cli-consignment
 
 docker-compose run user-cli ./user-cli   --name="Ewan Valentine"  --email="ewan.valentine89@gmail.com"   --password="Testing123"   --company="BBC"
+
+$ docker run -d -p 5432:5432 postgres
+$ docker run -d -p 27017:27017 mongo

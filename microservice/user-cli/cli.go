@@ -71,6 +71,17 @@ func main() {
 				log.Println(v)
 			}
 
+			authResponse, err := client.Auth(context.TODO(), &pb.User{
+				Email:    email,
+				Password: password,
+			})
+
+			if err != nil {
+				log.Fatalf("Could not authenticate user: %s error: %v\n", email, err)
+			}
+
+			log.Printf("Your access token is: %s \n", authResponse.Token)
+
 			os.Exit(0)
 		}),
 	)

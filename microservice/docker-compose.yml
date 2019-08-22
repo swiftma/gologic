@@ -12,6 +12,8 @@ services:
     environment:
       MICRO_ADDRESS: ":50051"
       DB_HOST: "mongodb://datastore:27017"
+    depends_on:
+      - user-service
 
   shippy-service-vessel:
     build: ./vessel-service

@@ -4,6 +4,7 @@ import (
 	pb "github.com/gologic/microservice/user-service/proto/user"
 	"github.com/dgrijalva/jwt-go"
 	"time"
+	"fmt"
 )
 
 var (
@@ -34,9 +35,13 @@ type TokenService struct {
 func (srv *TokenService) Decode(token string) (*CustomClaims, error) {
 
 	// Parse the token
-	tokenType, err := jwt.ParseWithClaims(string(key), &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+	tokenType, err := jwt.ParseWithClaims(string(token), &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return key, nil
 	})
+
+	if err != nil {
+		return nil, fmt.Errorf("decode token error %s: %v", token, err)
+	}
 
 	// Validate the token and return the custom claims
 	if claims, ok := tokenType.Claims.(*CustomClaims); ok && tokenType.Valid {
