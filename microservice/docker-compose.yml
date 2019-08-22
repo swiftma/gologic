@@ -4,6 +4,8 @@ services:
 
   shippy-cli-consignment:
     build: ./client
+    depends_on:
+      - shippy-service-consignment
 
   shippy-service-consignment:
     build: ./consignment-service
@@ -14,6 +16,7 @@ services:
       DB_HOST: "mongodb://datastore:27017"
     depends_on:
       - user-service
+      - shippy-service-vessel
 
   shippy-service-vessel:
     build: ./vessel-service
@@ -42,27 +45,36 @@ services:
         DB_PASSWORD: "postgres"
       depends_on:
          - database
-         - nats
 
   database:
       image: postgres
       ports:
         - 5432:5432
 
-  nats:
-      image: nats
-      ports:
-        - 4222:4222
+#  nats:
+#      image: nats
+#      ports:
+#        - 4222:4222
 
   user-cli:
       build: ./user-cli
       environment:
         MICRO_REGISTRY: "mdns"
+      depends_on:
+        - user-service
 
   email-service:
         build: ./email-service
         environment:
           MICRO_REGISTRY: "mdns"
-        depends_on:
-           - nats
+
+  api:
+      image: microhq/micro
+      ports:
+       - 8080:8080
+      environment:
+         MICRO_REGISTRY: "mdns"
+      command: api --handler=rpc --address=:8080 --namespace=shippy
+
+
 

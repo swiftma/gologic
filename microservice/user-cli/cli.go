@@ -8,6 +8,7 @@ import (
 	microclient "github.com/micro/go-micro/client"
 	"golang.org/x/net/context"
 	"github.com/micro/cli"
+	//"github.com/micro/go-micro/config/cmd"
 	"github.com/micro/go-micro"
 )
 
@@ -17,7 +18,7 @@ func main() {
 	//cmd.Init()
 
 	// Create new greeter client
-	client := pb.NewUserServiceClient("go.micro.srv.user", microclient.DefaultClient)
+	client := pb.NewUserServiceClient("shippy.auth", microclient.DefaultClient)
 
 	// Define our flags
 	service := micro.NewService(

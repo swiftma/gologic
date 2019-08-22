@@ -64,3 +64,18 @@ docker-compose run user-cli ./user-cli   --name="Ewan Valentine"  --email="ewan.
 
 $ docker run -d -p 5432:5432 postgres
 $ docker run -d -p 27017:27017 mongo
+
+docker pull microhq/micro
+
+curl -X POST -H 'Content-Type: application/json' \
+    -d '{ "service": "shippy.auth", "method": "UserService.Create", "request": {  "email": "majc@gmail.com", "password": "testing123", "name": "Ewan Valentine", "company": "BBC"  } }' \
+    http://localhost:8080/rpc
+
+curl -X POST -H 'Content-Type: application/json' \
+    -d '{ "service": "shippy.auth", "method": "UserService.GetAll", "request": {  } }' \
+    http://localhost:8080/rpc
+
+
+curl -XPOST -H 'Content-Type: application/json' \
+    -d '{ "service": "shippy.auth", "method": "UserService.Auth", "request":  { "email": "your@email.com", "password": "SomePass" } }' \
+    http://localhost:8080/rpc

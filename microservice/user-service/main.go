@@ -30,7 +30,7 @@ func main() {
 	srv := micro.NewService(
 
 		// This name must match the package name given in your protobuf definition
-		micro.Name("go.micro.srv.user"),
+		micro.Name("shippy.auth"),
 		micro.Version("latest"),
 	)
 
@@ -38,10 +38,11 @@ func main() {
 	srv.Init()
 
 	// Get instance of the broker using our defaults
-	pubsub := srv.Server().Options().Broker
+	//pubsub := srv.Server().Options().Broker
+	publisher := micro.NewPublisher(topic, srv.Client())
 
 	// Register handler
-	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, pubsub})
+	pb.RegisterUserServiceHandler(srv.Server(), &service{repo, tokenService, publisher})
 
 	// Run the server
 	if err := srv.Run(); err != nil {
