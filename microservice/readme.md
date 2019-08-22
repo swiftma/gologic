@@ -52,8 +52,10 @@ go get github.com/micro/go-micro
 ```
 
 删除指定image d72c2c74e975 不用的容器实例
+```
 docker ps -a|grep d72c2c74e975|awk '{print $1}'|xargs docker rm
-
+```
+```
 docker stop $(docker ps -qa)
 docker ps -a|awk '{print $1}'|xargs docker rm
 
@@ -66,7 +68,9 @@ $ docker run -d -p 5432:5432 postgres
 $ docker run -d -p 27017:27017 mongo
 
 docker pull microhq/micro
+```
 
+```
 curl -X POST -H 'Content-Type: application/json' \
     -d '{ "service": "shippy.auth", "method": "UserService.Create", "request": {  "email": "majc@gmail.com", "password": "testing123", "name": "Ewan Valentine", "company": "BBC"  } }' \
     http://localhost:8080/rpc
@@ -77,5 +81,20 @@ curl -X POST -H 'Content-Type: application/json' \
 
 
 curl -XPOST -H 'Content-Type: application/json' \
-    -d '{ "service": "shippy.auth", "method": "UserService.Auth", "request":  { "email": "your@email.com", "password": "SomePass" } }' \
+    -d '{ "service": "shippy.auth", "method": "UserService.Auth", "request":  { "email": "majc@gmail.com", "password": "testing123" } }' \
     http://localhost:8080/rpc
+
+
+curl -XPOST -H 'Content-Type: application/json' \
+    -H 'Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyIjp7ImlkIjoiOTE0ZTY0N2MtZjg4YS00OGEwLWFhNzUtMDg1ZGEyNzljZDBhIiwibmFtZSI6IkV3YW4gVmFsZW50aW5lIiwiY29tcGFueSI6IkJCQyIsImVtYWlsIjoibWFqY0BnbWFpbC5jb20iLCJwYXNzd29yZCI6IiQyYSQxMCQ4dTl3VmV4d3huVEV6WEl5R3pKaGxPSzJ4WlhYY1VRekRjT203TUp2ZUNJdU0vQ1huY1VmaSJ9LCJleHAiOjE1NjY0ODA4NjksImlzcyI6ImdvLm1pY3JvLnNydi51c2VyIn0.O8FBeMimFN4B5Vt0fY7W-toOmAeOC2K9vLMpmHHENYE' \
+    -d '{
+      "service": "shippy.service.consignment",
+      "method": "ShippingService.CreateConsignment",
+      "request": {
+        "description": "This is a test",
+        "weight": "500",
+        "containers": []
+      }
+    }' --url http://localhost:8080/rpc
+
+```
