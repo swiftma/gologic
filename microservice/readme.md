@@ -59,3 +59,5 @@ docker ps -a|awk '{print $1}'|xargs docker rm
 
 docker-compose up
 docker-compose run shippy-cli-consignment
+
+docker-compose run user-cli ./user-cli   --name="Ewan Valentine"  --email="ewan.valentine89@gmail.com"   --password="Testing123"   --company="BBC"
