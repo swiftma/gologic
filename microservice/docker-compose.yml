@@ -42,13 +42,27 @@ services:
         DB_PASSWORD: "postgres"
       depends_on:
          - database
+         - nats
 
   database:
       image: postgres
       ports:
         - 5432:5432
 
+  nats:
+      image: nats
+      ports:
+        - 4222:4222
+
   user-cli:
       build: ./user-cli
       environment:
         MICRO_REGISTRY: "mdns"
+
+  email-service:
+        build: ./email-service
+        environment:
+          MICRO_REGISTRY: "mdns"
+        depends_on:
+           - nats
+

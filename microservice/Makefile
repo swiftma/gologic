@@ -4,4 +4,5 @@ all:
 	cd vessel-service && make
 	cd user-service && make
 	cd user-cli && make
+	cd email-service && make
 
