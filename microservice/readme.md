@@ -98,3 +98,5 @@ curl -XPOST -H 'Content-Type: application/json' \
     }' --url http://localhost:8080/rpc
 
 ```
+
+micro api --address :8888 --namespace hello
